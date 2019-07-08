@@ -19,6 +19,7 @@ open Hue.py and insert the username for your bridge the names of your sensor
 ```bash
 ./plot.py
 ```
+<img src="images/kitch_motion.png" width="150">
 ![motion](images/kitchen_motion.png | width=100)
 ![temperature](images/kitchen_temp.png | width=100)
 ![lightlevel](images/kitchen_light.png | width=100)
