@@ -16,11 +16,15 @@ open Hue.py and insert the username for your bridge the names of your sensor
 ```
 
 ## Plot
+The following command plots the values of motion, light and temperature:
 ```bash
 ./plot.py
 ```
-<img src="images/kitch_motion.png" width="150">
-![motion](images/kitchen_motion.png | width=100)
-![temperature](images/kitchen_temp.png | width=100)
-![lightlevel](images/kitchen_light.png | width=100)
+<img src="https://github.com/TobiasWeis/hue/raw/master/images/kitchen_motion.png" width="230">
+<img src="https://github.com/TobiasWeis/hue/raw/master/images/kitchen_light.png" width="230">
+<img src="https://github.com/TobiasWeis/hue/raw/master/images/kitchen_temp.png" width="230">
 
+## TODO
+- [ ] Put sensor-names in config
+- [ ] Autodiscovery for sensors
+- [ ] Web-back/front-end for plotting
