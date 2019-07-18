@@ -9,7 +9,6 @@ import sqlite3
 import numpy as np
 import matplotlib.pyplot as plt
 
-from Sensor import *
 from Database import *
 
 
@@ -20,17 +19,17 @@ sensorvalues = db.get_all()
 measurements = {}
 
 for sv in sensorvalues:
-    if sv.name not in measurements.keys():
-        measurements[sv.name] = {}
-        measurements[sv.name]["dtime"] = []
-        measurements[sv.name]["temp"] = []
-        measurements[sv.name]["light"] = []
-        measurements[sv.name]["motion"] = []
+    if sv.idsensor not in measurements.keys():
+        measurements[sv.idsensor] = {}
+        measurements[sv.idsensor]["dtime"] = []
+        measurements[sv.idsensor]["temp"] = []
+        measurements[sv.idsensor]["light"] = []
+        measurements[sv.idsensor]["motion"] = []
 
-    measurements[sv.name]["dtime"].append(sv.dtime)
-    measurements[sv.name]["temp"].append(sv.temperature)
-    measurements[sv.name]["light"].append(sv.lightlevel)
-    measurements[sv.name]["motion"].append(sv.motion)
+    measurements[sv.idsensor]["dtime"].append(sv.dtime)
+    measurements[sv.idsensor]["temp"].append(sv.temperature)
+    measurements[sv.idsensor]["light"].append(sv.lightlevel)
+    measurements[sv.idsensor]["motion"].append(sv.motion)
 
 fig = plt.figure()
 

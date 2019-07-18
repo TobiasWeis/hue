@@ -108,7 +108,7 @@ class Hue:
                     if s.uniqueid not in sensorvalues.keys():
                         sensorvalues[s.uniqueid] = SensorValue()
                     sensorvalues[s.uniqueid].idsensor = s.uniqueid
-                    sensorvalues[s.uniqueid].temperature = key[1]['state']['temperature']
+                    sensorvalues[s.uniqueid].temperature = key[1]['state']['temperature']/100.0
 
                 if sid == s.id_light:
                     if s.uniqueid not in sensorvalues.keys():
@@ -130,5 +130,5 @@ class Hue:
      
 if __name__ == "__main__":
     h = Hue()
-    h.update_data()
-    #h.run()
+    #h.update_data()
+    h.run()
