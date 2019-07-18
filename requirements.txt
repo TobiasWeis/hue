@@ -3,3 +3,4 @@ requests
 sqlite3
 numpy
 matplotlib
+sqlalchemy

@@ -8,7 +8,7 @@ pip install -r requirements.txt
 ```
 
 ## Config
-open Hue.py and insert the username for your bridge the names of your sensor
+open Hue.py and insert ip and username for your bridge
 
 ## Run
 ```bash
@@ -26,8 +26,8 @@ The following command plots the values of motion, light and temperature:
 
 
 ## TODO
-- [ ] Put sensor-names in config
-- [ ] Autodiscovery for sensors
+- [X] Autodiscovery for sensors
+- [ ] ~~Put sensor-names in config~~
 - [ ] Web-back/front-end for plotting
 
 ### Sensor autodiscovery

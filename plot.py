@@ -9,33 +9,52 @@ import sqlite3
 import numpy as np
 import matplotlib.pyplot as plt
 
-conn = sqlite3.connect('hue.db')
-c = conn.cursor() 
+from Sensor import *
+from Database import *
 
-c.execute('''SELECT * FROM SENSORS''')
 
-rows = c.fetchall()
+db = Database()
+
+sensorvalues = db.get_all()
 
 measurements = {}
-measurements[u"Küche"] = [[],[],[],[]]
-measurements[u"Garderobe"] = [[],[],[],[]]
-measurements[u"PrivFlur"] = [[],[],[],[]]
 
-for r in rows:
-    for mk in measurements.keys():
-        if r[1] == mk:
-            measurements[mk][0].append(datetime.strptime(r[5], '%Y-%m-%d %H:%M:%S.%f'))
-            measurements[mk][1].append(r[2])
-            measurements[mk][2].append(r[3])
-            measurements[mk][3].append(r[4])
-        #print r
+for sv in sensorvalues:
+    if sv.name not in measurements.keys():
+        measurements[sv.name] = {}
+        measurements[sv.name]["dtime"] = []
+        measurements[sv.name]["temp"] = []
+        measurements[sv.name]["light"] = []
+        measurements[sv.name]["motion"] = []
 
-for i in [1,2,3]:
-    for k,v in measurements.items():
-        larr = np.array(v[0]) # dates
-        varr = np.array(v[i]) # values
-        fig,ax = plt.subplots()
-        plt.title(k)
-        plt.plot(larr, varr)
-        plt.setp(ax.get_xticklabels(), ha="right", rotation=45)
-plt.show()
+    measurements[sv.name]["dtime"].append(sv.dtime)
+    measurements[sv.name]["temp"].append(sv.temperature)
+    measurements[sv.name]["light"].append(sv.lightlevel)
+    measurements[sv.name]["motion"].append(sv.motion)
+
+fig = plt.figure()
+
+for idx,(name,mlists) in enumerate(measurements.iteritems()):
+    larr = np.array(mlists["dtime"])
+    plt.suptitle(name)
+
+    ax = fig.add_subplot(131)
+    plt.title("temp")
+    plt.plot(larr, np.array(mlists["temp"]), label=name)
+    plt.setp(ax.get_xticklabels(), ha="right", rotation=45)
+    plt.ylim((0,40))
+    plt.legend()
+
+    ax = fig.add_subplot(132)
+    plt.title("light")
+    plt.plot(larr, np.array(mlists["light"]), label=name)
+    plt.setp(ax.get_xticklabels(), ha="right", rotation=45) 
+    plt.legend()
+
+    ax = fig.add_subplot(133)
+    plt.title("motion")
+    plt.plot(larr, np.array(mlists["motion"])*(idx+1), 'x', label=name)
+    plt.ylim((0.5,3.5))
+    plt.setp(ax.get_xticklabels(), ha="right", rotation=45)
+    plt.legend()
+plt.show()   
