@@ -3,7 +3,7 @@
 '''
 TODOs:
     * put values in config
-    * automatically discover, fuse, and add sensors using their uniqueids
+    * cleanup messy redundant code
 '''
 import sys
 reload(sys)
@@ -21,8 +21,8 @@ from Database import *
 class Hue:
     def __init__(self):
         self.database = Database()
-        self.hue_host = "XXX.XXX.XXX.XXX"
-        self.hue_user = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+        self.hue_host = "192.168.178.34"
+        self.hue_user = "Lg3nA6dfY05UaO4WcbVFLCljr4Yi7KQtSqtCxGY4"
         self.update_interval = 2
 
         self.sensors = self.populate_sensors()
@@ -118,14 +118,14 @@ class Hue:
 
         for k,s in sensorvalues.iteritems():
             s.dtime = datetime.now()
-            print(s)
             self.database.add_sensorvalue(s)
 
         # only for test: query all values in db
-        print "------------ From DB:"
-        for instance in self.database.session.query(SensorValue).order_by(SensorValue.id):
-            print(instance)
-        print("---")
+        if False:
+            print "------------ From DB:"
+            for instance in self.database.session.query(SensorValue).order_by(SensorValue.id):
+                print(instance)
+            print("---")
 
      
 if __name__ == "__main__":
