@@ -31,9 +31,11 @@ for sv in sensorvalues:
     if sv.motion:
         myvals[sv.dtime.weekday(),sv.dtime.hour,ids.index(sv.idsensor)] += 1.
 
+"""
 for day in range(myvals.shape[0]):
     for sensor in range(len(ids)):
         myvals[day,:,sensor] /= np.sum(myvals[day,:,sensor])
+"""
 
        
 """
@@ -68,7 +70,7 @@ for idsensor in ids:
             name = s.name
     plt.suptitle(name)
 
-    sns.heatmap(myvals[:,:,ids.index(idsensor)], cmap='Greens')
+    sns.heatmap(myvals[:,:,ids.index(idsensor)], cmap='Greens', annot=True)
     plt.xticks(np.array(range(24))+0.5, rotation = 0)
     plt.yticks(np.array(range(len(daynames)))+0.5, daynames, rotation=0)
 
